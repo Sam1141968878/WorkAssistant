@@ -237,7 +237,6 @@ export default class LandingPage extends Component{
         }else{
             alert('登陆失败,请检查你的服务器配置')
         }
-
     })
   }
 

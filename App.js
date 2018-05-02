@@ -40,6 +40,8 @@ import AwaitMeManagePage from './Component/Page/AwaitMeManagePage'
 import MyAttentionPage from './Component/Page/MyAttentionPage'
 import MyMessagePage from './Component/Page/MyMessagePage'
 import WarningPage from './Component/Page/WarningPage'
+import DescribePage from './Component/Page/DescribePage'
+import HomePageGoToLandingPage from './Component/PageComponents/HomePage/HomePageGoToLandingPage'
 
 
 
@@ -90,32 +92,34 @@ const MyTab =TabNavigator({
 
 
 const App=StackNavigator({
-    MyTab:{screen:MyTab},
-    LandingPage:{screen:LandingPage},
-    HomePublicPage:{screen:HomePublicPage},
-    AnnualReportPage:{screen:AnnualReportPage},
-    AssetsViewPage:{screen:AssetsViewPage},
-    CapacityViewPage:{screen:CapacityViewPage},
-    ConstructionApplicationPage:{screen:ConstructionApplicationPage},
-    EnergyEfficiencyPage:{screen:EnergyEfficiencyPage},
-    FaultReportPage:{screen:FaultReportPage},
-    KnowledgeBasePage:{screen:KnowledgeBasePage},
-    MonthlyPage:{screen:MonthlyPage},
-    MorePage:{screen:MorePage},
-    PatrolCheckPage:{screen:PatrolCheckPage},
-    PUEViewPage:{screen:PUEViewPage},
-    ServiceRequestPage:{screen:ServiceRequestPage},
-    ShiftWorkPage:{screen:ShiftWorkPage},
-    WeeklyPage:{screen:WeeklyPage},
-    QRPatrolCheckDetailPage:{screen:QRPatrolCheckDetailPage},
-    DataManagementPage:{screen:DataManagementPage},
-    CustomerServicePage:{screen:CustomerServicePage},
-    AboutPage:{screen:AboutPage},
-    AccountDetailsPage:{screen:AccountDetailsPage},
-    AwaitMeManagePage:{screen:AwaitMeManagePage},
-    MyAttentionPage:{screen:MyAttentionPage},
-    MyMessagePage:{screen:MyMessagePage},
-    WarningPage:{screen:WarningPage},
+    // MyTab:{screen:MyTab},
+    // LandingPage:{screen:LandingPage},
+    // HomePublicPage:{screen:HomePublicPage},
+    // AnnualReportPage:{screen:AnnualReportPage},
+    // AssetsViewPage:{screen:AssetsViewPage},
+    // CapacityViewPage:{screen:CapacityViewPage},
+    // ConstructionApplicationPage:{screen:ConstructionApplicationPage},
+    // EnergyEfficiencyPage:{screen:EnergyEfficiencyPage},
+    // FaultReportPage:{screen:FaultReportPage},
+    // KnowledgeBasePage:{screen:KnowledgeBasePage},
+    // MonthlyPage:{screen:MonthlyPage},
+    // MorePage:{screen:MorePage},
+    // PatrolCheckPage:{screen:PatrolCheckPage},
+    // PUEViewPage:{screen:PUEViewPage},
+    // ServiceRequestPage:{screen:ServiceRequestPage},
+    // ShiftWorkPage:{screen:ShiftWorkPage},
+    // WeeklyPage:{screen:WeeklyPage},
+    // QRPatrolCheckDetailPage:{screen:QRPatrolCheckDetailPage},
+    // DataManagementPage:{screen:DataManagementPage},
+    // CustomerServicePage:{screen:CustomerServicePage},
+    // AboutPage:{screen:AboutPage},
+    // AccountDetailsPage:{screen:AccountDetailsPage},
+    // AwaitMeManagePage:{screen:AwaitMeManagePage},
+    // MyAttentionPage:{screen:MyAttentionPage},
+    // MyMessagePage:{screen:MyMessagePage},
+    // WarningPage:{screen:WarningPage},
+    // HomePageGoToLandingPage:{screen:HomePageGoToLandingPage},
+    DescribePage:{screen:DescribePage},
 },{
     headerMode:'none',
     mode:'modal'

@@ -100,6 +100,7 @@ export default class PatrolCheckPage extends PureComponent{
     }
 
     //暂时执行获取token,然后执行连接二维码插值函数
+    //还没有同步修改到登陆哪里
     _fetchQR=()=>{
       const accessToken=fetchPost('http://192.168.1.126/login',
         {"uid": "admin", "pwd": "123456"}

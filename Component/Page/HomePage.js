@@ -23,7 +23,8 @@ import {
   Image,
   StatusBar,
   BackAndroid,
-  AsyncStorage
+  AsyncStorage,
+  ActivityIndicator,
 } from 'react-native';
 
 import {observable,action} from 'mobx';
@@ -32,9 +33,12 @@ import NewGlobalStore from '../../GlobalStore/GlobalStore'
 
 import HomePageHeader from '../PageComponents/HomePage/HomePageHeader'
 import HomePageContent from '../PageComponents/HomePage/HomePageContent'
+import HomePageGoToLandingPage from '../PageComponents/HomePage/HomePageGoToLandingPage'
+import getObject from '../../Function/getObject'
+import setObject from '../../Function/setObject'
 
 @observer
-export default class HomePage extends PureComponent{
+export default class HomePage extends Component{
   static navigationOptions = {
       tabBarLabel: '主页',
       tabBarIcon: ({tintColor, focused}) => {
@@ -65,47 +69,67 @@ export default class HomePage extends PureComponent{
         )
       }
   };
-  componentWillMount() {
-      AsyncStorage.getItem('LandingState')
+  state={
+    ready:false,
+  }
+  componentDidMount() {
+      setTimeout(()=>this.setState({
+          ready:true
+      }),300)
+       AsyncStorage.getItem('LandingState')
+       .then((value) => {
+           let jsonValue = JSON.parse((value));
+           NewGlobalStore.LandingState=jsonValue
+       })
+      AsyncStorage.getItem('User')
       .then((value) => {
           let jsonValue = JSON.parse((value));
-          NewGlobalStore.landingState=jsonValue;
+          NewGlobalStore.User=jsonValue
       })
-      .then(()=>{
-        if(NewGlobalStore.landingState===true){
-            conolse.log('登陆成功')
-        }else{
-            this.props.navigation.navigate('LandingPage')
-        }
+      AsyncStorage.getItem('PassWord')
+      .then((value) => {
+          let jsonValue = JSON.parse((value));
+          NewGlobalStore.PassWord=jsonValue
       })
-
+      AsyncStorage.getItem('ServerParameters')
+      .then((value) => {
+          let jsonValue = JSON.parse((value));
+          NewGlobalStore.ServerParameters=jsonValue
+      })
+      AsyncStorage.getItem('GlobalToken')
+      .then((value) => {
+          let jsonValue = JSON.parse((value));
+          NewGlobalStore.GlobalToken=jsonValue
+      })
   }
   render() {
     const {navigate}=this.props.navigation;
     return (
       <View style={{flex:1}}>
-          <StatusBar
-            backgroundColor='rgba(0,0,0,0)'
-            translucent={true}
-          />
           {
-            NewGlobalStore.landingState
+            this.state.ready
             ?
-            <Text>登陆了</Text>
+                <View>
+                  {
+                    NewGlobalStore.LandingState
+                    ?
+                        <View
+                            style={{flex:1}}
+                        >
+                         <StatusBar
+                             backgroundColor='rgba(0,0,0,0)'
+                             translucent={true}
+                           />
+                           <HomePageHeader navigate={navigate}/>
+                           <HomePageContent navigate={navigate}/>
+                        </View>
+                    :
+                        <HomePageGoToLandingPage navigate={navigate}/>
+                  }
+                </View>
             :
-            <Text>未登录</Text>
+            <ActivityIndicator/>
           }
-          <TouchableOpacity
-              onPress={()=>{
-                AsyncStorage.removeItem('LandingState');
-                NewGlobalStore.landingState=false;
-                this.props.navigation,navigate('LandingPage')
-              }}
-          >
-              <Text>退出登陆</Text>
-          </TouchableOpacity>
-          <HomePageHeader navigate={navigate}/>
-          <HomePageContent navigate={navigate}/>
       </View>
     );
   }

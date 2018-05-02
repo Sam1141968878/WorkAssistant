@@ -9,10 +9,11 @@ import {observable,action} from 'mobx';
 
 class GlobalStore {
     //mobx关联的观察者
-    @observable user='';
-    @observable passWord='';
-    @observable serverParameters='';
-    @observable landingState=false;
+    @observable User='';
+    @observable PassWord='';
+    @observable ServerParameters='';
+    @observable GlobalToken='';
+    @observable LandingState=false;
 }
 
 let NewGlobalStore=new GlobalStore();

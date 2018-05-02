@@ -22,19 +22,29 @@ import {
   TouchableOpacity,
   Image,
   StatusBar,
+  TextInput,
+  ScrollView
 } from 'react-native';
 
 import PublicHeader from '../PublicComponents/PublicHeader'
-
+import Checkbox from 'teaset/components/Checkbox/Checkbox';
 
 export default class QRPatrolCheckDetailPage extends PureComponent{
   state={
     normal:true,
+    Editor:false,
+    noteValue:'',
   }
   render() {
-    const {state,navigate,goBack}=this.props.navigation
+    const {state,navigate,goBack}=this.props.navigation;
+
     return (
-      <View style={{flex:1}}>
+      <ScrollView
+        style={{
+            flex:1,
+            backgroundColor:'#f5f5f9'
+        }}
+      >
         <StatusBar
             backgroundColor='rgba(0,0,0,0)'
             translucent={true}
@@ -64,12 +74,14 @@ export default class QRPatrolCheckDetailPage extends PureComponent{
                     style={{
                          lineHeight:25,
                          color:'#000',
-                    }}>开始时间:{state.params.startTime}</Text>
+                    }}>开始时间:未获取到开始时间</Text>
+                    {/*{startTime?startTime:'未获取到开始时间'}*/}
                 <Text
                     style={{
                          lineHeight:25,
                          color:'#000',
-                    }}>结束时间:{state.params.endTime}</Text>
+                    }}>结束时间:未获取到结束时间</Text>
+                    {/*{endTime?endTime:'未获取到结束时间'}    */}
             </View>
             <View
                 style={{
@@ -78,7 +90,7 @@ export default class QRPatrolCheckDetailPage extends PureComponent{
                     backgroundColor:'#FFF',
                     borderRadius:3,
                     marginTop:10,
-                    height:300
+                    height:330
                 }}>
                 <View
                     style={{
@@ -96,13 +108,35 @@ export default class QRPatrolCheckDetailPage extends PureComponent{
                             fontSize:16,
                             color:'#000'
                         }}>巡检任务内容</Text>
-                    <View>
+                    <TouchableOpacity
+                        activeOpacity={0.7}
+                        style={{
+                            flexDirection:'row',
+                            alignItems:'center',
+                            width:80,
+                            height:50,
+                        }}
+                        onPress={()=>{
+                            this.setState({
+                                Editor:!this.state.Editor
+                            })
+                        }}
+                    >
+                        <Image
+                            source={require('../../Icon/巡检页图标/EditorBlue.png')}
+                            style={{
+                                width:17,
+                                height:17,
+                                marginRight:10,
+                                marginLeft:10,
+                            }}
+                        />
                         <Text
                             style={{
                                 color:'#5ea0ef',
                                 fontWeight:'500'
                             }}>编辑</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 <View
                     style={{
@@ -112,19 +146,23 @@ export default class QRPatrolCheckDetailPage extends PureComponent{
                     <Text
                         style={{
                             lineHeight:35,
-                        }}>区域:{state.params.area}</Text>
+                        }}>区域:未获取到区域</Text>
+                        {/*{area?area:'未获取到区域'}*/}
                     <Text
                         style={{
                             lineHeight:35,
-                        }}>设备名称:{state.params.deviceName}</Text>
+                        }}>设备名称:未获取到设备名称</Text>
+                        {/*{deviceName?deviceName:'未获取到设备名称'}*/}
                     <Text
                         style={{
                             lineHeight:35,
-                        }}>巡检内容:{state.params.patrolCheckContent}</Text>
+                        }}>巡检内容:未获取到巡检内容</Text>
+                        {/*{patrolCheckContent?patrolCheckContent:'未获取到巡检内容'}*/}
                     <Text
                         style={{
                             lineHeight:35,
-                        }}>参考值:{state.params.referenceValue}</Text>
+                        }}>参考值:未获取到参考值</Text>
+                        {/*{referenceValue?referenceValue:'未获取到参考值'}*/}
                     <View
                         style={{
                             flexDirection:'row'
@@ -132,16 +170,91 @@ export default class QRPatrolCheckDetailPage extends PureComponent{
                         <Text
                         style={{
                             lineHeight:35,
-                        }}>巡检值:{state.params.objectType}</Text>
+                        }}>巡检值:未获取到巡检值</Text>
+                        {/*{objectType?objectType:'未获取到巡检值'}*/}
                     </View>
-                    <Text
+                    <View
+                        style={{
+                            flexDirection:'row'
+                        }}
+                    >
+                        <Text
                         style={{
                             lineHeight:35,
-                        }}>巡检结果:{state.params.status}</Text>
-                    <Text
+                        }}>巡检结果:</Text>
+                        <Checkbox
+                            checkedIcon={require('../../Icon/巡检页图标/SelectBlueXj.png')}
+                            checkedIconStyle={{
+                                width:18,
+                                height:18,
+                            }}
+                            uncheckedIcon={require('../../Icon/巡检页图标/SelectGrayXJ.png')}
+                            uncheckedIconStyle={{
+                                width:18,
+                                height:18,
+                            }}
+                            activeOpacity={0.7}
+                            title='正常'
+                            defaultChecked={true}
+                            checked={this.state.normal}
+                            onChange={checked => this.setState({
+                                normal:checked
+                                })
+                            }
+                            style={{
+                                marginLeft:10,
+                                marginRight:25
+                            }}
+                        />
+                        <Checkbox
+                            checkedIcon={require('../../Icon/巡检页图标/SelectBlueXj.png')}
+                            checkedIconStyle={{
+                                width:18,
+                                height:18,
+                            }}
+                            uncheckedIcon={require('../../Icon/巡检页图标/SelectGrayXJ.png')}
+                            uncheckedIconStyle={{
+                                width:18,
+                                height:18,
+                            }}
+                            activeOpacity={0.7}
+                            title='异常'
+                            defaultChecked={false}
+                            checked={!this.state.normal}
+                            onChange={checked => this.setState({
+                                normal:!checked
+                                })
+                            }
+                        />
+                        {/*{status?status:'未获取到巡检结果'}*/}
+                    </View>
+                    <View
+                        style={{
+                            flexDirection:'row',
+                            alignItems:'center'
+                        }}
+                    >
+                        <Text
                         style={{
                             lineHeight:35,
-                        }}>备注:{state.params.remark?state.params.remark:'暂无备注'}</Text>
+                        }}>备注:</Text>
+                        <View>
+                            <TextInput
+                                value={this.state.noteValue}
+                                style={{width:250}}
+                                editable={this.state.Editor}
+                                multiline={true}
+                                onChangeText={(value)=>{
+                                    this.setState({
+                                        noteValue:value
+                                    })
+                                }}
+                                placeholder="暂无备注"
+                            />
+                        </View>
+                        {/*{remark?remark:'暂无备注'}*/}
+                    </View>
+
                 </View>
             </View>
             <View
@@ -181,7 +294,7 @@ export default class QRPatrolCheckDetailPage extends PureComponent{
                 </TouchableOpacity>
             </View>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }

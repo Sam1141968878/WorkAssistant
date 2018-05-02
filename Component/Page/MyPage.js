@@ -34,7 +34,7 @@ import MyPageHeader from '../PageComponents/MyPage/MyPageHeader'
 import MyPageContent from '../PageComponents/MyPage/MyPageContent'
 
 @observer
-export default class MyPage extends PureComponent{
+export default class MyPage extends Component{
   static navigationOptions = {
       tabBarLabel: '个人中心',
       tabBarIcon: ({tintColor, focused}) => {
@@ -73,17 +73,11 @@ export default class MyPage extends PureComponent{
               lazyLoading:false
           })
       },600)
-      AsyncStorage.getItem('LandingState')
-      .then((value) => {
-          let jsonValue = JSON.parse((value));
-          NewGlobalStore.landingState=jsonValue;
-      })
   }
   render() {
     const {navigate}=this.props.navigation;
     return (
       <View style={{flex:1}}>
-
           {
             this.state.lazyLoading
             ?
@@ -114,9 +108,55 @@ export default class MyPage extends PureComponent{
                       />
                       <MyPageHeader
                         navigate={navigate}
-                        user={NewGlobalStore.user}
+                        user={NewGlobalStore.User}
                       />
                       <MyPageContent navigate={navigate}/>
+                      <TouchableOpacity
+                          onPress={()=>{
+                            AsyncStorage.removeItem('GlobalToken',(error)=>{
+                                if (error) {
+                                    console.log('删除GlobalToken失败');
+                                } else  {
+                                    console.log('删除GlobalToken成功');
+                                }
+                            })
+                            AsyncStorage.removeItem('LandingState',(error)=>{
+                                if (error) {
+                                    console.log('删除LandingState失败');
+                                } else  {
+                                    console.log('删除LandingState成功');
+                                }
+                            })
+                            AsyncStorage.removeItem('User',(error)=>{
+                                if (error) {
+                                    console.log('删除User失败');
+                                } else  {
+                                    console.log('删除User成功');
+                                }
+                            })
+                            AsyncStorage.removeItem('PassWord',(error)=>{
+                                if (error) {
+                                    console.log('删除PassWord失败');
+                                } else  {
+                                    console.log('删除PassWord成功');
+                                }
+                            })
+                            AsyncStorage.removeItem('ServerParameters',(error)=>{
+                                if (error) {
+                                    console.log('删除ServerParameters失败');
+                                } else  {
+                                    console.log('删除ServerParameters成功');
+                                }
+                            })
+                            navigate('LandingPage')
+                          }}
+                          style={{
+                            height:50,
+                            backgroundColor:'red'
+                          }}
+                      >
+                          <Text>退出登陆</Text>
+                      </TouchableOpacity>
                 </View>
           }
       </View>

@@ -22,22 +22,39 @@ import {
   TouchableOpacity,
   Image,
   StatusBar,
+  BackHandler
 } from 'react-native';
 
+import {observable,action} from 'mobx';
+import {observer} from 'mobx-react';
 import PublicHeader from '../PublicComponents/PublicHeader'
 import PublicTopTab from '../PublicComponents/PublicTopTab'
+import NewGlobalStore from "../../GlobalStore/GlobalStore";
 var Spinner = require('react-native-spinkit');
 
+@observer
 export default class MorePage extends PureComponent{
   state={
     lazyLoading:true
   }
+  onBackAndroid = () => {
+    return false;
+  };
   componentDidMount() {
       setTimeout(()=>{
           this.setState({
               lazyLoading:false
           })
-      },600)
+      },500)
+      if (Platform.OS === 'android') {
+        NewGlobalStore.RemoveBackHandler();
+      }
+  }
+
+  componentWillUnmount() {
+      if (Platform.OS === 'android') {
+        NewGlobalStore.AddBackHandler();
+      }
   }
   render() {
     const {goBack}=this.props;
@@ -71,11 +88,20 @@ export default class MorePage extends PureComponent{
                     Title='更多'
                     goBack={goBack}
                   />
-                  <PublicTopTab
-                    OneTitle={'按分类'}
-                    TwoTitle={'按位置'}
-                    ThirdTitle={'按状态'}
-                    Type={3}
+                  {/*<PublicTopTab*/}
+                    {/*OneTitle={'按分类'}*/}
+                    {/*TwoTitle={'按位置'}*/}
+                    {/*ThirdTitle={'按状态'}*/}
+                    {/*Type={3}*/}
+                  {/*/>*/}
+                  <Image
+                      source={require('../../Icon/公用图标/DevelopmentImg.png')}
+                      style={{
+                          width:200,
+                          height:200,
+                          marginLeft:90,
+                          marginTop:100,
+                      }}
                   />
                 </View>
           }

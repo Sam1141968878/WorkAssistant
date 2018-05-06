@@ -6,6 +6,7 @@
  */
 
 import {observable,action} from 'mobx';
+import {BackHandler}from 'react-native'
 
 class GlobalStore {
     //mobx关联的观察者
@@ -14,6 +15,22 @@ class GlobalStore {
     @observable ServerParameters='';
     @observable GlobalToken='';
     @observable LandingState=false;
+    @observable onBackAndroid=()=>{
+        if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) {
+          //最近2秒内按过back键，可以退出应用。
+          BackHandler.exitApp()
+        }
+        this.lastBackPressed = Date.now();
+        alert('再按一次退出应用');
+        return true;
+    }
+    @observable AddBackHandler=()=>{
+        BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
+    }
+    @observable RemoveBackHandler=()=>{
+        BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
+    }
+    @observable GuideImageState=false;
 }
 
 let NewGlobalStore=new GlobalStore();

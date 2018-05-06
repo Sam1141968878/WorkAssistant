@@ -50,13 +50,13 @@ export default class PublicTopTab extends PureComponent{
                       prerenderingSiblingsNumber={0}
                     >
                             <View tabLabel={this.props.OneTitle}>
-                                <Text>1</Text>
+                                {this.props.OnePage}
                             </View>
                             <View tabLabel={this.props.TwoTitle}>
-                                <Text>2</Text>
+                                {this.props.TwoPage}
                             </View>
                             <View tabLabel={this.props.ThirdTitle}>
-                                <Text>3</Text>
+                                {this.props.ThirdPage}
                             </View>
                     </ScrollableTabView>
                 :

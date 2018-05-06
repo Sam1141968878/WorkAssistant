@@ -22,7 +22,8 @@ import {
   TouchableOpacity,
   Image,
   StatusBar,
-  AsyncStorage
+  AsyncStorage,
+  BackHandler
 } from 'react-native';
 
 var Spinner = require('react-native-spinkit');
@@ -72,7 +73,16 @@ export default class MyPage extends Component{
           this.setState({
               lazyLoading:false
           })
-      },600)
+      },400)
+      if (Platform.OS === 'android') {
+        NewGlobalStore.RemoveBackHandler();
+      }
+  }
+
+  componentWillUnmount() {
+      if (Platform.OS === 'android') {
+        NewGlobalStore.AddBackHandler();
+      }
   }
   render() {
     const {navigate}=this.props.navigation;

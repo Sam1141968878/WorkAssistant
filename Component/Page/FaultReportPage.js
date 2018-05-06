@@ -22,12 +22,17 @@ import {
   TouchableOpacity,
   Image,
   StatusBar,
+  BackHandler
 } from 'react-native';
 
+import {observable,action} from 'mobx';
+import {observer} from 'mobx-react';
 import PublicHeader from '../PublicComponents/PublicHeader'
 import FaultReportList from '../ListComponents/FaultReportList'
+import NewGlobalStore from "../../GlobalStore/GlobalStore";
 var Spinner = require('react-native-spinkit');
 
+@observer
 export default class FaultReportPage extends PureComponent{
   state={
     lazyLoading:true
@@ -37,13 +42,21 @@ export default class FaultReportPage extends PureComponent{
           this.setState({
               lazyLoading:false
           })
-      },600)
+      },500)
+      if (Platform.OS === 'android') {
+        NewGlobalStore.RemoveBackHandler();
+      }
+  }
+  componentWillUnmount() {
+      if (Platform.OS === 'android') {
+        NewGlobalStore.AddBackHandler();
+      }
   }
   save=()=>{
     alert('保存成功')
   }
   render() {
-    const {goBack}=this.props;
+    const {goBack,navigate}=this.props;
     return (
       <View style={{flex:1}}>
         {
@@ -78,7 +91,7 @@ export default class FaultReportPage extends PureComponent{
                   RightText={'保存'}
                   function={this.save}
               />
-              <FaultReportList/>
+              <FaultReportList navigate={navigate}/>
           </View>
         }
       </View>

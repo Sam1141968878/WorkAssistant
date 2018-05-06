@@ -21,11 +21,16 @@ import {
   InteractionManager,
   TouchableOpacity,
   Image,
+  BackHandler
 } from 'react-native';
 
 import { QRScannerView } from 'ac-qrcode';
 var Spinner = require('react-native-spinkit');
+import {observable,action} from 'mobx';
+import {observer} from 'mobx-react';
+import NewGlobalStore from "../../GlobalStore/GlobalStore";
 
+@observer
 export default class QrPage extends PureComponent{
   static navigationOptions = {
       tabBarLabel: '扫一扫',
@@ -64,7 +69,16 @@ export default class QrPage extends PureComponent{
           this.setState({
               lazyLoading:false
           })
-      },300)
+      },400)
+      if (Platform.OS === 'android') {
+        NewGlobalStore.RemoveBackHandler()
+      }
+  }
+
+  componentWillUnmount() {
+      if (Platform.OS === 'android') {
+        NewGlobalStore.AddBackHandler()
+      }
   }
 
   //扫一扫的自定义头部

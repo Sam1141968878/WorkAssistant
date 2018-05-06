@@ -22,12 +22,31 @@ import {
   TouchableOpacity,
   Image,
   StatusBar,
+  BackHandler
 } from 'react-native';
 
+var Spinner = require('react-native-spinkit');
 import PublicHeader from '../PublicComponents/PublicHeader'
 import PublicTopTab from '../PublicComponents/PublicTopTab'
-var Spinner = require('react-native-spinkit');
+import AssetsViewOnePage from '../PageComponents/AssetsViewPage/AssetsViewOnePage'
+import AssetsViewTwoPage from '../PageComponents/AssetsViewPage/AssetsViewTwoPage'
+import AssetsViewThirdPage from '../PageComponents/AssetsViewPage/AssetsViewThirdPage'
+import {observable,action} from 'mobx';
+import {observer} from 'mobx-react';
+import NewGlobalStore from "../../GlobalStore/GlobalStore";
 
+
+const AssetsViewTopTabProps={
+    OneTitle:'按分类',
+    TwoTitle:'按位置',
+    ThirdTitle:'按状态',
+    OnePage:<AssetsViewOnePage/>,
+    TwoPage:<AssetsViewTwoPage/>,
+    ThirdPage:<AssetsViewThirdPage/>,
+    Type:3,
+}
+
+@observer
 export default class AssetsViewPage extends PureComponent{
   state={
     lazyLoading:true
@@ -37,10 +56,18 @@ export default class AssetsViewPage extends PureComponent{
           this.setState({
               lazyLoading:false
           })
-      },600)
+      },500)
+      if (Platform.OS === 'android') {
+        NewGlobalStore.RemoveBackHandler();
+      }
+  }
+  componentWillUnmount() {
+      if (Platform.OS === 'android') {
+        NewGlobalStore.AddBackHandler();
+      }
   }
   render() {
-    const {goBack}=this.props;
+    const {goBack,navigate}=this.props;
     return (
       <View style={{flex:1}}>
         {
@@ -62,18 +89,23 @@ export default class AssetsViewPage extends PureComponent{
             </View>
           :
             <View
-                style={{flex:1}}
+                style={{
+                    flex:1,
+                    backgroundColor:'#f5f5f9'
+                }}
             >
                 <StatusBar
                     backgroundColor='rgba(0,0,0,0)'
                     translucent={true}
                 />
-                <PublicHeader type='one' Title='资产查看' goBack={goBack}/>
+                <PublicHeader
+                    type='one'
+                    Title='资产查看'
+                    goBack={goBack}
+                    fn={()=>navigate('SearchAssetsPage')}
+                />
                 <PublicTopTab
-                    OneTitle={'按分类'}
-                    TwoTitle={'按位置'}
-                    ThirdTitle={'按状态'}
-                    Type={3}
+                    {...AssetsViewTopTabProps}
                 />
             </View>
         }

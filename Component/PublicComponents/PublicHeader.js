@@ -25,7 +25,8 @@ import {
 } from 'react-native';
 
 
-//本组件有三种形式,且方法可以通过外部传入,满足基本头部需求,外部可以传入Title,RightText;
+
+//本组件有几种形式,且方法可以通过外部传入,满足基本头部需求,外部可以传入Title,RightText等;
 export default class PublicHeader extends PureComponent{
   render() {
     const {title,goBack}=this.props;
@@ -70,7 +71,9 @@ export default class PublicHeader extends PureComponent{
                           marginTop:2,
                           marginLeft:-15,
                         }}>{this.props.Title}</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={this.props.fn}
+                    >
                       <Image
                           style={{
                             width:20,
@@ -179,7 +182,7 @@ export default class PublicHeader extends PureComponent{
                 </View>
             </View>
         )
-    }else{
+    } else{
         return(
             //右缀带文字(文字带回调方法)的带标题的头部
             <View
@@ -226,7 +229,8 @@ export default class PublicHeader extends PureComponent{
                         <Text
                             style={{
                                 fontSize:15,
-                                color:'#FFF'
+                                color:'#FFF',
+                                marginTop:3,
                             }}
                         >{this.props.RightText}</Text>
                     </TouchableOpacity>

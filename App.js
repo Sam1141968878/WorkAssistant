@@ -5,13 +5,9 @@
  */
 
 import React, { PureComponent } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  Dimensions
-} from 'react-native';
+import {Dimensions}from 'react-native'
+import {StackNavigator,TabNavigator } from 'react-navigation';
+
 
 import QrPage from './Component/Page/QrPage'
 import MyPage from './Component/Page/MyPage'
@@ -41,16 +37,15 @@ import MyAttentionPage from './Component/Page/MyAttentionPage'
 import MyMessagePage from './Component/Page/MyMessagePage'
 import WarningPage from './Component/Page/WarningPage'
 import DescribePage from './Component/Page/DescribePage'
+import SearchWarningPage from './Component/Page/SearchWarningPage'
+import SearchAssetsPage from './Component/Page/SearchAssetsPage'
 import HomePageGoToLandingPage from './Component/PageComponents/HomePage/HomePageGoToLandingPage'
-
-
-
-
+import SelectEquipmentPage from './Component/Page/SelectEquipmentPage'
+import GuideImagePage from './Component/Page/GuideImagePage'
 
 import QRPatrolCheckDetailPage from './Component/Detail/QRPatrolCheckDetailPage'
 
 
-import {StackNavigator,TabNavigator } from 'react-navigation';
 
 const MyTab =TabNavigator({
     HomePage:{screen:HomePage},
@@ -90,36 +85,40 @@ const MyTab =TabNavigator({
     }
 })
 
-
 const App=StackNavigator({
-    // MyTab:{screen:MyTab},
-    // LandingPage:{screen:LandingPage},
-    // HomePublicPage:{screen:HomePublicPage},
-    // AnnualReportPage:{screen:AnnualReportPage},
-    // AssetsViewPage:{screen:AssetsViewPage},
-    // CapacityViewPage:{screen:CapacityViewPage},
-    // ConstructionApplicationPage:{screen:ConstructionApplicationPage},
-    // EnergyEfficiencyPage:{screen:EnergyEfficiencyPage},
-    // FaultReportPage:{screen:FaultReportPage},
-    // KnowledgeBasePage:{screen:KnowledgeBasePage},
-    // MonthlyPage:{screen:MonthlyPage},
-    // MorePage:{screen:MorePage},
-    // PatrolCheckPage:{screen:PatrolCheckPage},
-    // PUEViewPage:{screen:PUEViewPage},
-    // ServiceRequestPage:{screen:ServiceRequestPage},
-    // ShiftWorkPage:{screen:ShiftWorkPage},
-    // WeeklyPage:{screen:WeeklyPage},
-    // QRPatrolCheckDetailPage:{screen:QRPatrolCheckDetailPage},
-    // DataManagementPage:{screen:DataManagementPage},
-    // CustomerServicePage:{screen:CustomerServicePage},
-    // AboutPage:{screen:AboutPage},
-    // AccountDetailsPage:{screen:AccountDetailsPage},
-    // AwaitMeManagePage:{screen:AwaitMeManagePage},
-    // MyAttentionPage:{screen:MyAttentionPage},
-    // MyMessagePage:{screen:MyMessagePage},
-    // WarningPage:{screen:WarningPage},
-    // HomePageGoToLandingPage:{screen:HomePageGoToLandingPage},
+    GuideImagePage:{screen:GuideImagePage},
+    MyTab:{screen:MyTab},
+    LandingPage:{screen:LandingPage},
+    HomePublicPage:{screen:HomePublicPage},
+    AnnualReportPage:{screen:AnnualReportPage},
+    AssetsViewPage:{screen:AssetsViewPage},
+    CapacityViewPage:{screen:CapacityViewPage},
+    ConstructionApplicationPage:{screen:ConstructionApplicationPage},
+    EnergyEfficiencyPage:{screen:EnergyEfficiencyPage},
+    FaultReportPlage:{screen:FaultReportPage},
+    KnowledgeBasePage:{screen:KnowledgeBasePage},
+    MonthlyPage:{screen:MonthlyPage},
+    MorePage:{screen:MorePage},
+    PatrolCheckPage:{screen:PatrolCheckPage},
+    PUEViewPage:{screen:PUEViewPage},
+    ServiceRequestPage:{screen:ServiceRequestPage},
+    ShiftWorkPage:{screen:ShiftWorkPage},
+    WeeklyPage:{screen:WeeklyPage},
+    QRPatrolCheckDetailPage:{screen:QRPatrolCheckDetailPage},
+    DataManagementPage:{screen:DataManagementPage},
+    CustomerServicePage:{screen:CustomerServicePage},
+    AboutPage:{screen:AboutPage},
+    AccountDetailsPage:{screen:AccountDetailsPage},
+    AwaitMeManagePage:{screen:AwaitMeManagePage},
+    MyAttentionPage:{screen:MyAttentionPage},
+    MyMessagePage:{screen:MyMessagePage},
+    WarningPage:{screen:WarningPage},
+    HomePageGoToLandingPage:{screen:HomePageGoToLandingPage},
     DescribePage:{screen:DescribePage},
+    SearchWarningPage:{screen:SearchWarningPage},
+    SearchAssetsPage:{screen:SearchAssetsPage},
+    SelectEquipmentPage:{screen:SelectEquipmentPage},
+
 },{
     headerMode:'none',
     mode:'modal'
@@ -127,3 +126,26 @@ const App=StackNavigator({
 
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

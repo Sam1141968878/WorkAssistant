@@ -25,6 +25,7 @@ import {
   BackAndroid,
   AsyncStorage,
   ActivityIndicator,
+  BackHandler
 } from 'react-native';
 
 import {observable,action} from 'mobx';
@@ -34,8 +35,7 @@ import NewGlobalStore from '../../GlobalStore/GlobalStore'
 import HomePageHeader from '../PageComponents/HomePage/HomePageHeader'
 import HomePageContent from '../PageComponents/HomePage/HomePageContent'
 import HomePageGoToLandingPage from '../PageComponents/HomePage/HomePageGoToLandingPage'
-import getObject from '../../Function/getObject'
-import setObject from '../../Function/setObject'
+
 
 @observer
 export default class HomePage extends Component{
@@ -75,7 +75,7 @@ export default class HomePage extends Component{
   componentDidMount() {
       setTimeout(()=>this.setState({
           ready:true
-      }),300)
+      }),1000)
        AsyncStorage.getItem('LandingState')
        .then((value) => {
            let jsonValue = JSON.parse((value));
@@ -101,7 +101,11 @@ export default class HomePage extends Component{
           let jsonValue = JSON.parse((value));
           NewGlobalStore.GlobalToken=jsonValue
       })
+      if (Platform.OS === 'android') {
+          NewGlobalStore.AddBackHandler();
+      }
   }
+
   render() {
     const {navigate}=this.props.navigation;
     return (

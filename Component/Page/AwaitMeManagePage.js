@@ -22,7 +22,8 @@ import {
   TouchableOpacity,
   Image,
   StatusBar,
-  ScrollView
+  ScrollView,
+  BackHandler
 } from 'react-native';
 
 import PublicHeader from '../PublicComponents/PublicHeader'
@@ -32,6 +33,9 @@ import AwaitMeManageTwoPage from '../PageComponents/AwaitMeManagePage/AwaitMeMan
 import AwaitMeManageThirdPage from '../PageComponents/AwaitMeManagePage/AwaitMeManageThirdPage'
 import AwaitMeManageFourPage from '../PageComponents/AwaitMeManagePage/AwaitMeManageFourPage'
 var Spinner = require('react-native-spinkit');
+import {observable,action} from 'mobx';
+import {observer} from 'mobx-react';
+import NewGlobalStore from "../../GlobalStore/GlobalStore";
 
 
 const PublicTopTabProps={
@@ -46,7 +50,7 @@ const PublicTopTabProps={
     Type:'Four',
 }
 
-
+@observer
 export default class AwaitMeManagePage extends PureComponent{
   state={
     lazyLoading:true
@@ -57,6 +61,14 @@ export default class AwaitMeManagePage extends PureComponent{
               lazyLoading:false
           })
       },300)
+      if (Platform.OS === 'android') {
+          NewGlobalStore.RemoveBackHandler();
+      }
+  }
+  componentWillUnmount() {
+      if (Platform.OS === 'android') {
+          NewGlobalStore.AddBackHandler();
+      }
   }
   render() {
     const {goBack}=this.props.navigation;

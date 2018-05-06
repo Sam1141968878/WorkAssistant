@@ -25,6 +25,10 @@ import {
   ScrollView
 } from 'react-native';
 
+import {observable,action} from 'mobx';
+import {observer} from 'mobx-react';
+import NewGlobalStore from "../../GlobalStore/GlobalStore";
+
 import PublicHeader from '../PublicComponents/PublicHeader'
 import PublicTopTab from '../PublicComponents/PublicTopTab'
 import MyAttentionOnePage from '../PageComponents/MyAttentionPage/MyAttentionOnePage'
@@ -32,7 +36,6 @@ import MyAttentionTwoPage from '../PageComponents/MyAttentionPage/MyAttentionTwo
 import MyAttentionThirdPage from '../PageComponents/MyAttentionPage/MyAttentionThirdPage'
 import MyAttentionFourPage from '../PageComponents/MyAttentionPage/MyAttentionFourPage'
 var Spinner = require('react-native-spinkit');
-
 
 
 const PublicTopTabProps={
@@ -47,7 +50,7 @@ const PublicTopTabProps={
     Type:'Four',
 }
 
-
+@observer
 export default class MyAttentionPage extends PureComponent{
   state={
     lazyLoading:true
@@ -58,6 +61,14 @@ export default class MyAttentionPage extends PureComponent{
               lazyLoading:false
           })
       },300)
+      if (Platform.OS === 'android') {
+        NewGlobalStore.RemoveBackHandler();
+      }
+  }
+  componentWillUnmount() {
+      if (Platform.OS === 'android') {
+        NewGlobalStore.AddBackHandler();
+      }
   }
   render() {
     const {goBack}=this.props.navigation;

@@ -25,6 +25,10 @@ import {
   ScrollView
 } from 'react-native';
 
+import {observable,action} from 'mobx';
+import {observer} from 'mobx-react';
+import NewGlobalStore from "../../GlobalStore/GlobalStore";
+
 import PublicHeader from '../PublicComponents/PublicHeader'
 import PublicTopTab from '../PublicComponents/PublicTopTab'
 import MyMessagePageItem from '../PageComponents/MyMessagePage/MyMessagePageItem'
@@ -75,7 +79,7 @@ const MyMessageData=[
     },
 ]
 
-
+@observer
 export default class MyMessagePage extends PureComponent{
   state={
     lazyLoading:true
@@ -86,6 +90,14 @@ export default class MyMessagePage extends PureComponent{
               lazyLoading:false
           })
       },300)
+      if (Platform.OS === 'android') {
+        NewGlobalStore.RemoveBackHandler();
+      }
+  }
+  componentWillUnmount() {
+      if (Platform.OS === 'android') {
+        NewGlobalStore.AddBackHandler();
+      }
   }
   render() {
     const {goBack}=this.props.navigation;

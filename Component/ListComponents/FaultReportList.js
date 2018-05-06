@@ -232,6 +232,7 @@ export default class FaultReportList extends PureComponent{
       </View>
     </Overlay.PopView>
   );
+
   render() {
     const {
         FaultPeople,
@@ -241,6 +242,7 @@ export default class FaultReportList extends PureComponent{
         Title,
         Content,
     }=this.state;
+    const {navigate}=this.props;
     return (
         <View
             style={{flex:1,backgroundColor:'#FFF',marginTop:10}}
@@ -426,7 +428,7 @@ export default class FaultReportList extends PureComponent{
             </TouchableOpacity>
             {/*选择关联设备模块*/}
             <TouchableOpacity
-                onPress={this.SelectSystemPicker}
+                onPress={()=>navigate('SelectEquipmentPage')}
                 style={{
                     flexDirection:'row',
                     marginLeft:10,
